@@ -1,8 +1,13 @@
-import React from 'react';
+import AlbumFeature from 'features/Album';
 import './App.css';
+import React  from 'react';
 
 function App() {
-  return <div className="app">Learn ReactJS - Easy Frontend</div>;
+  return (
+    <>
+      <AlbumFeature />
+    </>
+  );
 }
 
 export default App;

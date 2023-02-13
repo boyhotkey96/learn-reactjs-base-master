@@ -1,0 +1,20 @@
+.album {
+  padding: 25px;
+  transition: opacity .25s ease-out;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
+  & img {
+    border-radius: 6px;
+  }
+
+  &__name {
+    text-transform: capitalize;
+    font-weight: bold;
+    text-align: center;
+    font-size: 22px;
+  }
+}
