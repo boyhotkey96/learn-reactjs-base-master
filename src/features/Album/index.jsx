@@ -1,4 +1,3 @@
-import React from "react";
 import AlbumList from "./components/AlbumList";
 import Proptypes from 'prop-types'
 

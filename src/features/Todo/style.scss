@@ -1,0 +1,14 @@
+h2 {
+  color: deeppink;
+  font-size: 44px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 6px 12px;
+  margin-right: 8px;
+
+  &-filter {
+    font-size: 22px
+  }
+}
