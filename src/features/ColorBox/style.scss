@@ -1,0 +1,8 @@
+.box-color {
+  $box-size: 300px;
+  margin: 0 auto;
+  width: $box-size;
+  height: $box-size;
+  border-radius: 8px;
+  cursor: pointer;
+}
