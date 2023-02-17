@@ -1,0 +1,23 @@
+ul.todo-list {
+  & li {
+    color: deeppink;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all .25s ease-out;
+
+    &:hover {
+      opacity: 0.9;
+      color: rgb(95, 4, 52);
+      text-decoration: line-through;
+    }
+  }
+}
+
+form {
+  padding: 0 20px;
+
+  & input {
+    padding: 4px 8px;
+    font-size: 22px;
+  }
+}
