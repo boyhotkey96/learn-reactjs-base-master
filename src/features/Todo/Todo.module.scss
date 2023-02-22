@@ -1,4 +1,4 @@
-h2 {
+.h2 {
   color: deeppink;
   font-size: 44px;
 }
@@ -7,8 +7,5 @@ h2 {
   cursor: pointer;
   padding: 6px 12px;
   margin-right: 8px;
-
-  &-filter {
-    font-size: 22px
-  }
+  font-size: 22px
 }

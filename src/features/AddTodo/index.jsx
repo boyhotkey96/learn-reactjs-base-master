@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import styled from 'styled-components';
+
+const H2 = styled.h2`
+  color: deeppink;
+`
 
 function AddTodo() {
   const initTodoList = [
@@ -39,7 +44,7 @@ function AddTodo() {
 
   return (
     <div>
-      <h2>Hook - Todo List</h2>
+      <H2>Hook - Todo List</H2>
       <TodoForm onSubmit={handleSubmit} />
       <TodoList todoList={todoList} onItemClick={handleItemRemove} />
     </div>

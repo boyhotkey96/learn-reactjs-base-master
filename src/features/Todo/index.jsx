@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import TodoList from './components/TodoList';
-import './style.scss';
+import styles from './Todo.module.scss';
 
-TodoFeatures.propTypes = {
-  // initTodoList: PropTypes.array,
-};
-
-TodoFeatures.defaultProps = {
-  initTodoList: null,
-};
-
-function TodoFeatures(props) {
+function TodoFeatures() {
   const initTodoList = [
     { id: 1, name: 'eat', status: 'completed' },
     { id: 2, name: 'sleep', status: 'new' },
@@ -57,15 +49,15 @@ function TodoFeatures(props) {
 
   return (
     <>
-      <h2>To-do-list:</h2>
+      <h2 className={styles.h2}>To-do-list:</h2>
       <TodoList todoList={filteredTodoList} onClickItem={onClickItem} />
-      <button className="btn btn-filter" onClick={handleShowAllClick}>
+      <button className={styles.btn} onClick={handleShowAllClick}>
         Show all
       </button>
-      <button className="btn btn-filter" onClick={handleShowCompletedClick}>
+      <button className={styles.btn} onClick={handleShowCompletedClick}>
         Show completed
       </button>
-      <button className="btn btn-filter" onClick={handleShowNewClick}>
+      <button className={styles.btn} onClick={handleShowNewClick}>
         Show new
       </button>
     </>
