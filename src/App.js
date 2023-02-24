@@ -5,6 +5,7 @@ import TodoFeatures from 'features/Todo';
 import ColorBox from 'features/ColorBox';
 import AddTodo from 'features/AddTodo';
 import GetApi from 'features/GetApi';
+import ClockFeature from 'features/Clock';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       {/* <TodoFeatures /> */}
       {/* <ColorBox /> */}
       {/* <AddTodo /> */}
-      <GetApi />
+      {/* <GetApi /> */}
+      <ClockFeature />
     </>
   );
 }
