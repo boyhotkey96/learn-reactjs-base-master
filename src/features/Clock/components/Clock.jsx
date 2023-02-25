@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import useClock from 'hooks/useClock';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -14,9 +14,9 @@ const Div = styled.div`
   cursor: not-allowed;
   & span {
     display: inline-block;
-    padding: 30px;
     text-align: center;
-    min-width: 340px;
+    width: 350px;
+    padding: 20px;
     border: 2px solid deeppink;
     border-radius: 10px;
     color: deeppink;
@@ -24,31 +24,8 @@ const Div = styled.div`
   }
 `;
 
-// Fuction getNow -> time now
-const getNow = (now) => {
-  if (!now) return null;
-
-  const hours = `0${now.getHours()}`.slice(-2);
-  const minutes = `0${now.getMinutes()}`.slice(-2);
-  const seconds = `0${now.getSeconds()}`.slice(-2);
-
-  return `${hours}:${minutes}:${seconds}`;
-};
-
 function Clock() {
-  const [timeString, setTimeString] = useState('');
-
-  useEffect(() => {
-    const timeId = setInterval(() => {
-      const now = new Date();
-      const time = getNow(now);
-      setTimeString(time);
-    }, 1000);
-
-    return () => {
-      clearInterval(timeId);
-    };
-  }, []);
+  const { timeString } = useClock();
 
   return (
     timeString && (
