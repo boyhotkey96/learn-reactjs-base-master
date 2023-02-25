@@ -6,6 +6,7 @@ import ColorBox from 'features/ColorBox';
 import AddTodo from 'features/AddTodo';
 import GetApi from 'features/GetApi';
 import ClockFeature from 'features/Clock';
+import MagicColor from 'features/MagicColor';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       {/* <ColorBox /> */}
       {/* <AddTodo /> */}
       {/* <GetApi /> */}
-      <ClockFeature />
+      {/* <ClockFeature /> */}
+      <MagicColor />
     </>
   );
 }

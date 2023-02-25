@@ -31,8 +31,6 @@ function Clock() {
 
   const [status, setStatus] = useState('visible');
 
-  const statusRef = useRef();
-
   useEffect(() => {
     const statusInterval = setInterval(() => {
       setStatus(status === 'visible' ? 'hidden' : 'visible');
@@ -48,13 +46,9 @@ function Clock() {
       <Div>
         <p>
           {hours}
-          <span ref={statusRef} style={{ visibility: status }}>
-            :
-          </span>
+          <span style={{ visibility: status }}>:</span>
           {minutes}
-          <span ref={statusRef} style={{ visibility: status }}>
-            :
-          </span>
+          <span style={{ visibility: status }}>:</span>
           {seconds}
         </p>
       </Div>
