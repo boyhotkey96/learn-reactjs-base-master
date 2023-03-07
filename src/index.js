@@ -6,11 +6,11 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 serviceWorker.unregister();

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import styles from './Todo.module.scss';
 
@@ -47,8 +48,23 @@ function TodoFeatures() {
     setFilteredStatus('new');
   };
 
+  const handleTodoFormSubmit = (values) => {
+    // console.log(values);
+    const newValues = {
+      id: Math.random(),
+      name: values.title,
+      status: 'new',
+    };
+
+    const newTodoList = [...todoList, newValues];
+    setTodoList(newTodoList);
+  };
+
   return (
     <>
+      <h2>React Hook Form</h2>
+      <TodoForm onSubmit={handleTodoFormSubmit} />
+
       <h2 className={styles.h2}>To-do-list:</h2>
       <TodoList todoList={filteredTodoList} onClickItem={onClickItem} />
       <button className={styles.btn} onClick={handleShowAllClick}>
