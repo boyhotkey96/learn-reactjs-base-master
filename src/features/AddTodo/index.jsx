@@ -1,17 +1,17 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
-import styled from 'styled-components';
 
 const H2 = styled.h2`
   color: deeppink;
-`
+`;
 
 function AddTodo() {
   const initTodoList = [
-    // { id: 1, title: 'Nắng Ấm Xa Dần' },
-    // { id: 2, title: 'Em Của Ngày Hôm Qua' },
-    // { id: 3, title: 'Cơn Mưa Ngang Qua' },
+    { id: 1, title: 'Nắng Ấm Xa Dần' },
+    { id: 2, title: 'Em Của Ngày Hôm Qua' },
+    { id: 3, title: 'Cơn Mưa Ngang Qua' },
   ];
 
   const [todoList, setTodoList] = useState(() => {
@@ -29,11 +29,11 @@ function AddTodo() {
   };
 
   const handleSubmit = (value) => {
-    // console.log(value)
+    console.log(value);
     const newTodoList = [...todoList];
     const formValues = {
       id: Math.random(),
-      title: value,
+      title: value.title,
     };
 
     newTodoList.push(formValues);

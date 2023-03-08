@@ -45,7 +45,7 @@ function App() {
       </ul>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/todo" />} />
+        <Route path="/" element={<Navigate to="/add-todo" />} />
         <Route path="/album" element={<AlbumFeature />} />
         <Route path="/todo" element={<TodoFeatures />} />
         <Route path="/color-box" element={<ColorBox />} />
