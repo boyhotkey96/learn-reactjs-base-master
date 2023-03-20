@@ -6,6 +6,7 @@ import ColorBox from 'features/ColorBox';
 import GetApi from 'features/GetApi';
 import MagicColor from 'features/MagicColor';
 import Products from 'features/Products';
+import RandomNumber from 'features/RandomNumber';
 import TodoFeatures from 'features/Todo';
 import { Link, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -42,10 +43,13 @@ function App() {
         <li>
           <Link to="/categories">Get Categories</Link>
         </li>
+        <li>
+          <Link to="/random-number">Random Number using Redux</Link>
+        </li>
       </ul>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/add-todo" />} />
+        <Route path="/" element={<Navigate to="/random-number" />} />
         <Route path="/album" element={<AlbumFeature />} />
         <Route path="/todo" element={<TodoFeatures />} />
         <Route path="/color-box" element={<ColorBox />} />
@@ -55,6 +59,7 @@ function App() {
         <Route path="/magic-color" element={<MagicColor />} />
         <Route path="/products" element={<Products />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/random-number" element={<RandomNumber />} />
       </Routes>
     </>
   );
