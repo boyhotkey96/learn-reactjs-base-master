@@ -1,4 +1,5 @@
-import { store } from 'features/RandomNumber/store';
+// import { store } from 'features/RandomNumber/store';
+import { store } from 'features/Counter/store';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

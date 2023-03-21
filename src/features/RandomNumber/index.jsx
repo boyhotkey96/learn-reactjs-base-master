@@ -3,8 +3,8 @@ import { addHobby, setHobby } from './action/hobbyAction';
 import RandomNumberList from './components/RandomNumberList';
 
 function RandomNumber() {
-  const hobbyList = useSelector((state) => state.hobbyRe.hobbyList);
-  const activeId = useSelector((state) => state.hobbyRe.activeId);
+  const hobbyList = useSelector((state) => state.hobby.hobbyList);
+  const activeId = useSelector((state) => state.hobby.activeId);
 
   const dispatch = useDispatch();
 

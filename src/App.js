@@ -3,6 +3,7 @@ import AlbumFeature from 'features/Album';
 import Categories from 'features/Categories';
 import ClockFeature from 'features/Clock';
 import ColorBox from 'features/ColorBox';
+import Counter from 'features/Counter';
 import GetApi from 'features/GetApi';
 import MagicColor from 'features/MagicColor';
 import Products from 'features/Products';
@@ -46,10 +47,13 @@ function App() {
         <li>
           <Link to="/random-number">Random Number using Redux</Link>
         </li>
+        <li>
+          <Link to="/counter">Counter</Link>
+        </li>
       </ul>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/random-number" />} />
+        <Route path="/" element={<Navigate to="/counter" />} />
         <Route path="/album" element={<AlbumFeature />} />
         <Route path="/todo" element={<TodoFeatures />} />
         <Route path="/color-box" element={<ColorBox />} />
@@ -60,6 +64,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/random-number" element={<RandomNumber />} />
+        <Route path="/counter" element={<Counter />} />
       </Routes>
     </>
   );
