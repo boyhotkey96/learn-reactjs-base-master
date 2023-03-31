@@ -1,3 +1,4 @@
+import Header from 'components/Header';
 import AddTodo from 'features/AddTodo';
 import AlbumFeature from 'features/Album';
 import Categories from 'features/Categories';
@@ -15,6 +16,7 @@ import './App.css';
 function App() {
   return (
     <>
+      <Header />
       <h1>React Hooks</h1>
       <ul>
         <li>

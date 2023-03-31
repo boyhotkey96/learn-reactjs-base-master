@@ -11,6 +11,7 @@ const rootReducers = {
 
 export const store = configureStore({
   reducer: rootReducers,
+  devTools: true,
 });
 
 store.subscribe(() => console.log(store.getState()));
