@@ -21,10 +21,25 @@ RegisterForm.propTypes = {
 function RegisterForm({ onSubmit, handleClose }) {
   const signupSchema = yup
     .object({
-      username: yup.string().required('Please enter your username').min(3, 'Min <= 3').max(25, 'max <= 25'),
-      email: yup.string().required('Please enter your email'),
-      password: yup.string().required('Please enter your password'),
-      retypepassword: yup.string().required('Please enter your retypepassword'),
+      username: yup
+        .string()
+        .trim()
+        .required('Please enter your username.')
+        // .min(3, 'Min <= 3')
+        // .max(25, 'max <= 25')
+        .test('Should has at least two words', 'Please enter at least two words.', (value) => {
+          return value.split(' ').length >= 2;
+        }),
+      email: yup.string().trim().required('Please enter your email.').email('Please enter a valid email address.'),
+      password: yup
+        .string()
+        .trim()
+        .required('Please enter your password.')
+        .min(6, 'Password must be at least 6 characters.'),
+      retypepassword: yup
+        .string()
+        .required('Please enter retype your password.')
+        .oneOf([yup.ref('password')], 'Password does not matches.'),
     })
     .required();
 

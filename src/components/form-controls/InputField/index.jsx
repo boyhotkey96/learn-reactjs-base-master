@@ -9,7 +9,8 @@ function InputField(props) {
   console.log(errors[name]);
   console.log(touchedFields[name]);
 
-  const hasErrors = touchedFields[name] && errors[name];
+  // const hasErrors = touchedFields[name] && errors[name];
+  const hasErrors = errors[name];
 
   return (
     <Controller

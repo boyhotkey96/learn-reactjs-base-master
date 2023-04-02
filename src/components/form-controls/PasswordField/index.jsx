@@ -20,9 +20,10 @@ function PasswordField(props) {
   const { form, name, label, placeholder, disabled } = props;
   const { control, register, formState } = form;
   const { errors, touchedFields } = formState;
-  console.log(errors[name]?.message);
+  // console.log(errors[name]?.message);
 
-  const hasErrors = touchedFields[name] && errors[name];
+  // const hasErrors = touchedFields[name] && errors[name];
+  const hasErrors = !!errors[name];
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,15 +33,13 @@ function PasswordField(props) {
 
   return (
     <>
-      <FormControl sx={{}} margin="normal" fullWidth variant="outlined">
-        <InputLabel htmlFor={name} error={!!hasErrors && 'error'}>
-          {label}
-        </InputLabel>
+      <FormControl error={hasErrors} sx={{}} margin="normal" fullWidth variant="outlined">
+        <InputLabel htmlFor={name}>{label}</InputLabel>
         <Controller
           id={name}
           name={name}
           control={control}
-          disabled={disabled} 
+          disabled={disabled}
           render={({ field }) => (
             <OutlinedInput
               {...field}
@@ -50,7 +49,7 @@ function PasswordField(props) {
               placeholder={placeholder}
               variant="outlined"
               margin="dense"
-              error={!!hasErrors}
+              // error={hasErrors}
               // helperText={errors[name]?.message}
               type={showPassword ? 'text' : 'password'}
               endAdornment={
@@ -63,7 +62,7 @@ function PasswordField(props) {
             />
           )}
         />
-        <FormHelperText error={!!hasErrors && 'error'}>{errors[name]?.message}</FormHelperText>
+        <FormHelperText>{errors[name]?.message}</FormHelperText>
       </FormControl>
     </>
   );
