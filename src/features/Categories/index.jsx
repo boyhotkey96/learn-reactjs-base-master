@@ -1,4 +1,4 @@
-import getCategories from 'api/getCategories';
+import categoriesApi from 'api/categoriesApi';
 import { useEffect, useState } from 'react';
 import CategoriesList from './components/CategoriesList';
 
@@ -8,7 +8,7 @@ function Categories() {
   useEffect(() => {
     try {
       const fetchCategories = async () => {
-        const data = await getCategories.getAll();
+        const data = await categoriesApi.getAll();
         console.log(data);
         setCategories(data);
       };

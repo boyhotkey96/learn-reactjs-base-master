@@ -1,4 +1,4 @@
-import getProducts from 'api/getProducts';
+import productsApi from 'api/productsApi';
 import { useEffect, useState } from 'react';
 import ProductList from './components/ProductList';
 
@@ -8,7 +8,7 @@ function Products() {
   useEffect(() => {
     try {
       async function fetchProducts() {
-        const data = await getProducts.getAll();
+        const data = await productsApi.getAll();
         // const data = await getProducts.get(13637765);
         // const data = await getProducts.add({name: 'lazada shop'});
         // const data = await getProducts.update({ id: 13637765, name: 'Lazada' });

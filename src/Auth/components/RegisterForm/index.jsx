@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { MailOutlineOutlined, Person2Outlined } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { LockOutlined, MailOutlineOutlined, Person2Outlined } from '@mui/icons-material';
+import { Avatar, Box, Button, DialogActions, DialogContent, LinearProgress, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
@@ -16,9 +16,10 @@ const CustomizeButton = styled(Button)`
 
 RegisterForm.propTypes = {
   onSubmit: Proptypes.func,
+  onClose: Proptypes.func,
 };
 
-function RegisterForm({ onSubmit, handleClose }) {
+function RegisterForm({ onSubmit, onClose }) {
   const signupSchema = yup
     .object({
       username: yup
@@ -53,50 +54,81 @@ function RegisterForm({ onSubmit, handleClose }) {
     resolver: yupResolver(signupSchema),
   });
 
-  const handleSubmit = (values) => {
-    console.log('log handleSubmit');
-    if (onSubmit) {
-      onSubmit(values);
-      form.reset();
-    }
+  const handleSubmit = async (values) => {
+    // console.log('Values: ', values)
+    return await new Promise((resolve) =>
+      setTimeout(() => {
+        if (onSubmit) {
+          onSubmit(values);
+          form.reset();
+        }
+      }, 2000)
+    );
   };
 
+  const { isSubmitting } = form.formState;
+
   return (
-    <form onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField
-        name="username"
-        label="Username"
-        placeholder="Enter your username"
-        form={form}
-        disabled
-        iconProps={<Person2Outlined />}
-      />
+    <>
+      <Box
+        sx={{
+          marginTop: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {/* Show loading when submiting */}
+        {isSubmitting && <LinearProgress color="success" sx={{ position: 'absolute', top: 1, left: 0, right: 0 }} />}
+        <Avatar sx={{ m: 1, backgroundColor: 'deeppink' }}>
+          <LockOutlined />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+      </Box>
+      <DialogContent>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <InputField
+            name="username"
+            label="Username"
+            placeholder="Enter your username"
+            form={form}
+            disabled
+            iconProps={<Person2Outlined />}
+          />
 
-      <InputField
-        name="email"
-        label="Email"
-        placeholder="Enter your email"
-        form={form}
-        disabled
-        iconProps={<MailOutlineOutlined />}
-      />
+          <InputField
+            name="email"
+            label="Email"
+            placeholder="Enter your email"
+            form={form}
+            disabled
+            iconProps={<MailOutlineOutlined />}
+          />
 
-      <PasswordField name="password" label="Password" placeholder="Enter your password" form={form} disabled />
+          <PasswordField name="password" label="Password" placeholder="Enter your password" form={form} disabled />
 
-      <PasswordField
-        name="retypepassword"
-        label="Retype Password"
-        placeholder="Enter your retype password"
-        form={form}
-        disabled
-      />
+          <PasswordField
+            name="retypepassword"
+            label="Retype Password"
+            placeholder="Enter your retype password"
+            form={form}
+            disabled
+          />
 
-      <Button sx={{ marginTop: '2rem' }} fullWidth size="medium" variant="contained" type="submit">
-        Submit
-      </Button>
-      {/* Test styled component */}
-      <CustomizeButton>Cancel</CustomizeButton>
-    </form>
+          <Button sx={{ marginTop: '2rem' }} fullWidth size="medium" variant="contained" type="submit">
+            Submit
+          </Button>
+          {/* Using styled component */}
+          <CustomizeButton>Cancel</CustomizeButton>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        {/* <Button onClick={handleSubmitForm}>Submit</Button> */}
+      </DialogActions>
+    </>
   );
 }
 

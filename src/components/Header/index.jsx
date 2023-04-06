@@ -1,11 +1,8 @@
-import { LockOutlined } from '@mui/icons-material';
 import CodeIcon from '@mui/icons-material/Code';
-import { Avatar, DialogActions } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Register from 'Auth/components/Register';
@@ -23,10 +20,6 @@ export default function Header() {
   const handleClose = (event, reason) => {
     if (reason === 'backdropClick' || reason === 'escapeKeyDown') return;
     setOpen(false);
-  };
-
-  const handleSubmitForm = (values) => {
-    console.log(values);
   };
 
   return (
@@ -62,30 +55,8 @@ export default function Header() {
         open={open}
         onClose={handleClose}
       >
-        <Box
-          sx={{
-            marginTop: 6,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, backgroundColor: 'deeppink' }}>
-            <LockOutlined />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-            {/* <DialogTitle>Create an account</DialogTitle> */}
-          </Typography>
-        </Box>
-        <DialogContent>
-          {/* This is Register Page form */}
-          <Register handleClose={handleClose} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          {/* <Button onClick={handleSubmitForm}>Submit</Button> */}
-        </DialogActions>
+        {/* This is Register Page */}
+        <Register onClose={handleClose} />
       </Dialog>
     </Box>
   );
