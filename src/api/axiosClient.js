@@ -21,6 +21,14 @@ axiosClient.interceptors.response.use(
     return response.data;
   },
   function (error) {
+    console.log('ERROR RESPONSE: ', error.response);
+    const { config, status, data } = error.response;
+
+    if (config.url === '/auth/local/register' && status >= 400) {
+      // console.log('ERROR MESSAGE: ', data.data[0].messages[0].message)
+      throw new Error(data.data[0].messages[0].message);
+    }
+
     return Promise.reject(error);
   }
 );

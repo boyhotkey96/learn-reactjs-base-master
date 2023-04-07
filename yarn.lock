@@ -7733,7 +7733,7 @@
   "resolved" "https://registry.npmjs.org/normalize-url/-/normalize-url-6.1.0.tgz"
   "version" "6.1.0"
 
-"notistack@^1.0.1":
+"notistack@^1.0.10":
   "integrity" "sha512-z0y4jJaVtOoH3kc3GtNUlhNTY+5LE04QDeLVujX3VPhhzg67zw055mZjrBF+nzpv3V9aiPNph1EgRU4+t8kQTQ=="
   "resolved" "https://registry.npmjs.org/notistack/-/notistack-1.0.10.tgz"
   "version" "1.0.10"

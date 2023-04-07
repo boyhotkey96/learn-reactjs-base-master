@@ -1,37 +1,43 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import RegisterForm from 'Auth/components/RegisterForm';
 import { register } from 'Auth/userSlice';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 Register.propTypes = {
-  onClose: PropTypes.func,
+  closeDialog: PropTypes.func,
 };
 
-function Register({ onClose }) {
+function Register({ closeDialog }) {
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state => state.user)
-  console.log(isLoading)
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (values) => {
     try {
       // console.log('values: ', values);
 
       // auto set username = email
-      values.username = values.email;
-
+      // values.username = values.email;
       const resultAction = await dispatch(register(values));
       const user = unwrapResult(resultAction);
 
       console.log('New User: ', user);
+
+      // close dialog after register successfully.
+      closeDialog();
+
+      // variant could be success, error, warning, info, or default
+      enqueueSnackbar('Register successfully!', { variant: 'success' });
     } catch (error) {
-      console.log('Failed to register: ', error);
+      console.log('Failed to register: ', error.message);
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
 
   return (
     <>
-      <RegisterForm onSubmit={handleSubmit} onClose={onClose} />
+      <RegisterForm onSubmit={handleSubmit} closeDialog={closeDialog} />
     </>
   );
 }

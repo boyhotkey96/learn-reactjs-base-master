@@ -1,5 +1,6 @@
 // import { store } from 'features/RandomNumber/store';
 import { store } from 'app/store';
+import { SnackbarProvider } from 'notistack';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <SnackbarProvider autoHideDuration={3000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <App />
+      </SnackbarProvider>
     </BrowserRouter>
   </Provider>
   // </React.StrictMode>

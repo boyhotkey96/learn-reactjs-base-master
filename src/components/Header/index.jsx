@@ -1,4 +1,5 @@
 import CodeIcon from '@mui/icons-material/Code';
+import { DialogContent } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -48,6 +49,7 @@ export default function Header() {
         </Toolbar>
       </AppBar>
 
+      {/* This is Dialog form */}
       <Dialog
         fullWidth
         /* disableEscapeKeyDown
@@ -55,8 +57,10 @@ export default function Header() {
         open={open}
         onClose={handleClose}
       >
-        {/* This is Register Page */}
-        <Register onClose={handleClose} />
+        <DialogContent>
+          {/* This is Register Page */}
+          <Register closeDialog={handleClose} />
+        </DialogContent>
       </Dialog>
     </Box>
   );
