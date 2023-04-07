@@ -2,7 +2,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import RegisterForm from 'Auth/components/RegisterForm';
 import { register } from 'Auth/userSlice';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 Register.propTypes = {
   onClose: PropTypes.func,
@@ -10,6 +10,8 @@ Register.propTypes = {
 
 function Register({ onClose }) {
   const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.user)
+  console.log(isLoading)
 
   const handleSubmit = async (values) => {
     try {
