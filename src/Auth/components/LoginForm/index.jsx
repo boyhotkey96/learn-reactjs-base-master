@@ -1,62 +1,32 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CloseOutlined, LockOutlined, MailOutlineOutlined, Person2Outlined } from '@mui/icons-material';
+import { CloseOutlined, LockOutlined, Person2Outlined } from '@mui/icons-material';
 import { Avatar, Box, Button, IconButton, LinearProgress, Typography } from '@mui/material';
-import { styled } from '@mui/system';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import Proptypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   onSubmit: Proptypes.func,
   closeDialog: Proptypes.func,
 };
 
-const CustomizeButton = styled(Button)`
-  color: white;
-  background-color: red;
-  display: none;
-`;
-
-function RegisterForm({ onSubmit, closeDialog }) {
+function LoginForm({ onSubmit, closeDialog }) {
   const signupSchema = Yup.object({
-    username: Yup.string()
-      .trim()
-      .required('Please enter your username.')
-      // .min(3, 'Min <= 3')
-      // .max(25, 'max <= 25')
-      .test('length', 'Please enter at least two words.', (value) => {
-        return value && value.split(' ').length >= 2;
-      }),
-    email: Yup.string().trim().required('Please enter your email.').email('Please enter a valid email address.'),
-    password: Yup.string()
-      .trim()
-      .required('Please enter your password.')
-      .min(6, 'Password must be at least 6 characters.'),
-    retypepassword: Yup.string()
-      .trim()
-      .required('Please enter retype your password.')
-      .oneOf([Yup.ref('password')], 'Password does not matches.'),
+    identifier: Yup.string().trim().required('Please enter your username.'),
+    password: Yup.string().trim().required('Please enter your password.'),
   }).required();
 
   const form = useForm({
     defaultValues: {
-      username: '',
-      email: '',
+      identifier: '',
       password: '',
-      retypepassword: '',
     },
     resolver: yupResolver(signupSchema),
   });
 
   const handleSubmit = async (values) => {
-    // console.log('Values: ', values)
-
-    /* if (onSubmit) {
-      await onSubmit(values);
-    } */
-
     // delay 2s when submit register
     const emulatorInternetDelay = new Promise((resolve) =>
       setTimeout(() => {
@@ -94,42 +64,25 @@ function RegisterForm({ onSubmit, closeDialog }) {
           <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign Up
+          Sign In
         </Typography>
       </Box>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField
-          name="username"
+          name="identifier"
           label="Username"
           placeholder="Enter your username"
           form={form}
           disabled
           iconProps={<Person2Outlined />}
         />
-        <InputField
-          name="email"
-          label="Email"
-          placeholder="Enter your email"
-          form={form}
-          disabled
-          iconProps={<MailOutlineOutlined />}
-        />
         <PasswordField name="password" label="Password" placeholder="Enter your password" form={form} disabled />
-        <PasswordField
-          name="retypepassword"
-          label="Retype Password"
-          placeholder="Enter your retype password"
-          form={form}
-          disabled
-        />
         <Button sx={{ marginTop: '2rem' }} fullWidth size="large" variant="contained" type="submit">
-          Register
+          Login
         </Button>
-        {/* Using styled component */}
-        <CustomizeButton>Cancel</CustomizeButton>
       </form>
     </>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from 'api/userApi';
+import { StorageKeys } from 'constants/StorageKeys';
 
 export const register = createAsyncThunk('user/register', async (payload, { isRejectedWithValue }) => {
   // call api to register
@@ -8,8 +9,21 @@ export const register = createAsyncThunk('user/register', async (payload, { isRe
   console.log(data);
 
   // save data to local storage
-  localStorage.setItem('access-token', data.jwt);
-  localStorage.setItem('user', JSON.stringify(data.user));
+  localStorage.setItem(StorageKeys.TOKEN, data.jwt);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
+
+  return data.user;
+});
+
+export const login = createAsyncThunk('user/login', async (payload, { isRejectedWithValue }) => {
+  // call api to register
+  const data = await userApi.login(payload);
+
+  console.log(data);
+
+  // save data to local storage
+  localStorage.setItem(StorageKeys.TOKEN, data.jwt);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
 
   return data.user;
 });
@@ -17,7 +31,7 @@ export const register = createAsyncThunk('user/register', async (payload, { isRe
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    current: {},
+    current: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
     isLoading: false,
     errorMessage: '',
   },
@@ -44,6 +58,9 @@ const userSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         // close state isLoading, save user info to store
         state.isLoading = false;
+        state.current = action.payload;
+      })
+      .addCase(login.fulfilled, (state, action) => {
         state.current = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
