@@ -40,6 +40,9 @@ const userSlice = createSlice({
       // logout not call api, only update state
       state.current = null;
       state.errorMessage = '';
+      // remove data to local storage
+      localStorage.removeItem(StorageKeys.TOKEN);
+      localStorage.removeItem(StorageKeys.USER);
     },
   },
   /* extraReducers: {
@@ -75,5 +78,6 @@ const userSlice = createSlice({
   },
 });
 
-const { reducer } = userSlice;
+const { actions, reducer } = userSlice;
+export const { logout } = actions;
 export default reducer;

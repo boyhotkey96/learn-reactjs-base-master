@@ -1,7 +1,7 @@
 import { IconButton } from '@material-ui/core';
 import { AccountCircle } from '@mui/icons-material';
 import CodeIcon from '@mui/icons-material/Code';
-import { DialogContent } from '@mui/material';
+import { DialogContent, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,8 +10,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Login from 'Auth/components/Login';
 import Register from 'Auth/components/Register';
+import { logout } from 'Auth/userSlice';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import './style.scss';
 
@@ -21,11 +22,14 @@ export default function Header() {
     REGISTER: 'register',
   };
 
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const user = useSelector((state) => state.user.current);
-  const loggedUser = !!user.id;
+  const loggedUser = !!user?.id;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,6 +52,23 @@ export default function Header() {
     handleClickOpen();
   };
 
+  // Code of menu popover
+  const handleOpenMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    handleCloseMenu();
+    dispatch(logout());
+  };
+
+  const isOpen = Boolean(anchorEl);
+  const idMenu = open ? 'user-popover' : undefined;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -67,9 +88,31 @@ export default function Header() {
             <Button color="inherit">Album</Button>
           </NavLink>
           {loggedUser ? (
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
+            <>
+              <IconButton
+                id={idMenu}
+                aria-controls={isOpen ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isOpen ? 'true' : undefined}
+                color="inherit"
+                onClick={handleOpenMenu}
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id={idMenu}
+                open={isOpen}
+                anchorEl={anchorEl}
+                onClose={handleCloseMenu}
+                MenuListProps={{
+                  'aria-labelledby': idMenu,
+                }}
+              >
+                <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout 🔓</MenuItem>
+              </Menu>
+            </>
           ) : (
             <NavLink className="app-bar__link">
               <Button color="inherit" onClick={handleClickOpen}>
