@@ -10,9 +10,10 @@ import * as Yup from 'yup';
 LoginForm.propTypes = {
   onSubmit: Proptypes.func,
   closeDialog: Proptypes.func,
+  isLoading: Proptypes.bool,
 };
 
-function LoginForm({ onSubmit, closeDialog }) {
+function LoginForm({ onSubmit, closeDialog, isLoading }) {
   const signupSchema = Yup.object({
     identifier: Yup.string().trim().required('Please enter your username.'),
     password: Yup.string().trim().required('Please enter your password.'),
@@ -28,17 +29,30 @@ function LoginForm({ onSubmit, closeDialog }) {
 
   const handleSubmit = async (values) => {
     // delay 2s when submit register
-    const emulatorInternetDelay = new Promise((resolve) =>
+    /* const emulatorInternetDelay = new Promise((resolve) =>
       setTimeout(() => {
-        resolve('complete delay 2 seconds!');
-      }, 2000)
-    );
+        resolve('Complete delay 2 seconds!');
+      }, 6000)
+    ); */
 
-    const result = await emulatorInternetDelay;
+    // Solution 1:
+    /* const result = await emulatorInternetDelay;
     if (result) {
       if (onSubmit) {
         onSubmit(values);
       }
+    } */
+
+    // Solution 2:
+    /* await emulatorInternetDelay.then((data) => {
+      console.log(data);
+      if (onSubmit) {
+        onSubmit(values);
+      }
+    }); */
+
+    if (onSubmit) {
+      await onSubmit(values);
     }
   };
 
@@ -77,7 +91,14 @@ function LoginForm({ onSubmit, closeDialog }) {
           iconProps={<Person2Outlined />}
         />
         <PasswordField name="password" label="Password" placeholder="Enter your password" form={form} disabled />
-        <Button sx={{ marginTop: '2rem' }} fullWidth size="large" variant="contained" type="submit">
+        <Button
+          sx={{ marginTop: '2rem' }}
+          fullWidth
+          size="large"
+          variant="contained"
+          type="submit"
+          disabled={isLoading}
+        >
           Login
         </Button>
       </form>

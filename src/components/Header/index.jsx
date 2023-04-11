@@ -1,7 +1,7 @@
 import { IconButton } from '@material-ui/core';
 import { AccountCircle } from '@mui/icons-material';
 import CodeIcon from '@mui/icons-material/Code';
-import { DialogContent, Menu, MenuItem } from '@mui/material';
+import { DialogContent, Menu, MenuItem, ThemeProvider, createTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,6 +15,21 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import './style.scss';
+
+// Demo override css in MUI
+const theme = createTheme({
+  components: {
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          display: 'block',
+          padding: '6px 16px',
+          color: 'deeppink',
+        },
+      },
+    },
+  },
+});
 
 export default function Header() {
   const MODE = {
@@ -88,7 +103,8 @@ export default function Header() {
             <Button color="inherit">Album</Button>
           </NavLink>
           {loggedUser ? (
-            <>
+            // User login: show info user
+            <ThemeProvider theme={theme}>
               <IconButton
                 id={idMenu}
                 aria-controls={isOpen ? 'basic-menu' : undefined}
@@ -106,14 +122,21 @@ export default function Header() {
                 onClose={handleCloseMenu}
                 MenuListProps={{
                   'aria-labelledby': idMenu,
+                  sx: {
+                    '.MuiMenuItem-root': {
+                      display: 'block',
+                      padding: '6px 16px',
+                    },
+                  },
                 }}
               >
                 <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
                 <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout 🔓</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
-            </>
+            </ThemeProvider>
           ) : (
+            // User not logged: show button login
             <NavLink className="app-bar__link">
               <Button color="inherit" onClick={handleClickOpen}>
                 Login

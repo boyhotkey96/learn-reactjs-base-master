@@ -11,23 +11,23 @@ import * as Yup from 'yup';
 RegisterForm.propTypes = {
   onSubmit: Proptypes.func,
   closeDialog: Proptypes.func,
+  isLoading: Proptypes.bool,
 };
-
+// Demo styled
 const CustomizeButton = styled(Button)`
   color: white;
   background-color: red;
   display: none;
 `;
 
-function RegisterForm({ onSubmit, closeDialog }) {
+function RegisterForm({ onSubmit, closeDialog, isLoading }) {
   const signupSchema = Yup.object({
     username: Yup.string()
       .trim()
       .required('Please enter your username.')
-      // .min(3, 'Min <= 3')
-      // .max(25, 'max <= 25')
-      .test('length', 'Please enter at least two words.', (value) => {
-        return value && value.split(' ').length >= 2;
+      .test('length', 'Please enter at least six words.', (value) => {
+        // const result = value.split(' ').length >= 2;
+        return value.length >= 6;
       }),
     email: Yup.string().trim().required('Please enter your email.').email('Please enter a valid email address.'),
     password: Yup.string()
@@ -51,24 +51,8 @@ function RegisterForm({ onSubmit, closeDialog }) {
   });
 
   const handleSubmit = async (values) => {
-    // console.log('Values: ', values)
-
-    /* if (onSubmit) {
+    if (onSubmit) {
       await onSubmit(values);
-    } */
-
-    // delay 2s when submit register
-    const emulatorInternetDelay = new Promise((resolve) =>
-      setTimeout(() => {
-        resolve('complete delay 2 seconds!');
-      }, 2000)
-    );
-
-    const result = await emulatorInternetDelay;
-    if (result) {
-      if (onSubmit) {
-        onSubmit(values);
-      }
     }
   };
 
@@ -122,11 +106,16 @@ function RegisterForm({ onSubmit, closeDialog }) {
           form={form}
           disabled
         />
-        <Button sx={{ marginTop: '2rem' }} fullWidth size="large" variant="contained" type="submit">
+        <Button
+          sx={{ marginTop: '2rem' }}
+          fullWidth
+          size="large"
+          variant="contained"
+          type="submit"
+          disabled={isLoading}
+        >
           Register
         </Button>
-        {/* Using styled component */}
-        <CustomizeButton>Cancel</CustomizeButton>
       </form>
     </>
   );

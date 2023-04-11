@@ -6,8 +6,8 @@ function InputField(props) {
   const { control, register, formState } = form;
   const { errors, touchedFields } = formState;
 
-  console.log(errors[name]);
-  console.log(touchedFields[name]);
+  // console.log(errors[name]);
+  // console.log(touchedFields[name]);
 
   // const hasErrors = touchedFields[name] && errors[name];
   const hasErrors = errors[name];
