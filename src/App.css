@@ -1,7 +1,9 @@
 .app {
   /* padding: 1rem 2rem; */
 }
-
+.html {
+  background-color: rgb(255, 255, 255);
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

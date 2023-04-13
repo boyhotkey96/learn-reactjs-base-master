@@ -10,14 +10,16 @@ import MagicColor from 'features/MagicColor';
 import Products from 'features/Products';
 import RandomNumber from 'features/RandomNumber';
 import TodoFeatures from 'features/Todo';
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import Product from 'pages/Product';
+import ListPage from 'pages/Product/ListPage';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
     <>
       <Header />
-      <h1>React Hooks</h1>
+      {/* <h1>React Hooks</h1>
       <ul>
         <li>
           <Link to="/album">Album</Link>
@@ -52,10 +54,10 @@ function App() {
         <li>
           <Link to="/counter">Counter</Link>
         </li>
-      </ul>
+      </ul> */}
 
       <Routes>
-        <Route path="/" element={<Navigate to="/counter" />} />
+        <Route path="/" />
         <Route path="/album" element={<AlbumFeature />} />
         <Route path="/todo" element={<TodoFeatures />} />
         <Route path="/color-box" element={<ColorBox />} />
@@ -67,6 +69,10 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/random-number" element={<RandomNumber />} />
         <Route path="/counter" element={<Counter />} />
+
+        <Route path="/product" element={<Product />}>
+          <Route index element={<ListPage />} />
+        </Route>
       </Routes>
     </>
   );
