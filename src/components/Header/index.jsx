@@ -93,14 +93,14 @@ export default function Header() {
           </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" className="app-bar__link">
-              EZ Shop
+              Tiki Shop
             </Link>
           </Typography>
-          <NavLink className="app-bar__link" to="/todo">
+          <NavLink className="app-bar__link" to="/add-todo">
             <Button color="inherit">Todo</Button>
           </NavLink>
-          <NavLink className="app-bar__link" to="/album">
-            <Button color="inherit">Album</Button>
+          <NavLink className="app-bar__link" to="/clock">
+            <Button color="inherit">Clock</Button>
           </NavLink>
           {loggedUser ? (
             // User login: show info user

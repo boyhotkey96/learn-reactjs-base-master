@@ -1,22 +1,24 @@
-import { Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
+import { STATIC_HOST, THUMNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
 
 ProductItem.propTypes = {
   product: PropTypes.object,
 };
 
-function ProductItem({ product }) {
+function ProductItem({ product, styleProductItem }) {
+  const thumnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMNAIL_PLACEHOLDER;
+
   return (
-    <Grid item md={4} sx={{ textAlign: 'center', marginBottom: '30px', padding: '8px' }}>
-      <img
-        src="https://salt.tikicdn.com/cache/280x280/ts/product/a9/a3/87/41910b2e14d1551785b2068c95d9ef26.jpg.webp"
-        alt="images"
-        height="200x"
-      />
-      <p>{product.name}</p>
-      <p>
-        Price: {product.salePrice} - Sale: {product.promotionPercent}%
-      </p>
+    <Grid item {...styleProductItem}>
+      <img src={thumnailUrl} alt="images" width="100%" height="200px" />
+      <Typography variant="body2">{product.name}</Typography>
+      <Typography variant="body2">
+        <Box component="span" fontSize="16px" fontWeight="bold" mr={1}>
+          {new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(product.salePrice)}
+        </Box>
+        {product.promotionPercent > 0 ? `-${product.promotionPercent}%` : ''}
+      </Typography>
     </Grid>
   );
 }

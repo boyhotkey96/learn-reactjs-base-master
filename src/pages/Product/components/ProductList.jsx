@@ -6,11 +6,11 @@ ProductList.propTypes = {
   products: PropTypes.array,
 };
 
-function ProductList({ products }) {
+function ProductList({ products, styleProductItem }) {
   return (
     <Grid container>
       {products.map((product, index) => (
-        <ProductItem key={index} product={product} />
+        <ProductItem key={index} product={product} styleProductItem={styleProductItem} />
       ))}
     </Grid>
   );
