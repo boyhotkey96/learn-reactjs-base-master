@@ -1,8 +1,10 @@
 import { Box, Container, Grid, Pagination, Paper, Stack, styled } from '@mui/material';
 import productApi from 'api/productApi';
 import { useEffect, useState } from 'react';
+import ProductFilters from './components/ProductFilters';
 import ProductList from './components/ProductList';
 import ProductSkeletonList from './components/ProductSkeletonList';
+import ProductSortPrice from './components/ProductSortPrice';
 
 ListPage.propTypes = {};
 
@@ -12,8 +14,25 @@ const GridLeft = styled(Grid)`
 const GridRight = styled(Grid)`
   flex: 1;
 `;
+const styleProductItem = {
+  xs: 6,
+  md: 4,
+  sx: {
+    marginBottom: '3rem',
+    padding: '0 8px',
+  },
+};
+const WrapPagination = styled(Box)`
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  padding-bottom: 1rem;
+`;
 
 function ListPage() {
+  const DEFAULT = {
+    tab: 'default',
+  };
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({
     // _limit: 9,
@@ -23,17 +42,9 @@ function ListPage() {
   const [filters, setFilters] = useState({
     _limit: 9,
     _page: 1,
+    // _sort: 'salePrice:ASC',
   });
   const [isLoading, setIsloading] = useState(false);
-
-  const styleProductItem = {
-    xs: 6,
-    md: 4,
-    sx: {
-      marginBottom: '2px',
-      padding: '8px',
-    },
-  };
 
   useEffect(() => {
     (async () => {
@@ -69,9 +80,22 @@ function ListPage() {
   }, [filters]);
 
   const handlePageChange = (e, page) => {
-    setFilters((prev) => ({
-      ...prev,
-      _page: page,
+    setFilters((prev) => ({ ...prev, _page: page }));
+  };
+
+  const handleSortChange = (newSortValue) => {
+    // console.log(newSortValue);
+    setFilters((prev) => {
+      const newFilters = { ...prev, _sort: newSortValue };
+      newSortValue === DEFAULT.tab && delete newFilters._sort;
+      return newFilters;
+    });
+  };
+
+  const handleFiltersChange = (newFilters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
     }));
   };
 
@@ -80,7 +104,10 @@ function ListPage() {
       <Container>
         <Grid container spacing={1} p={1}>
           <GridLeft item>
-            <Paper elevation={0}>Left column</Paper>
+            <Paper elevation={0}>
+              {/* component categories */}
+              <ProductFilters filters={filters} onChange={handleFiltersChange} />
+            </Paper>
           </GridLeft>
           <GridRight item>
             <Paper elevation={0}>
@@ -88,17 +115,21 @@ function ListPage() {
                 <ProductSkeletonList {...styleProductItem} length={9} />
               ) : (
                 <>
+                  {/* component product */}
+                  <ProductSortPrice currentValue={filters._sort || DEFAULT.tab} onChange={handleSortChange} />
                   <ProductList products={products} styleProductItem={styleProductItem} />
-                  <Stack spacing={2}>
-                    <Pagination
-                      color="primary"
-                      shape="rounded"
-                      count={Math.ceil(pagination._total / pagination._limit) || -1}
-                      page={pagination._page}
-                      defaultPage={1}
-                      onChange={handlePageChange}
-                    />
-                  </Stack>
+                  <WrapPagination>
+                    <Stack spacing={2}>
+                      <Pagination
+                        color="primary"
+                        // shape="rounded"
+                        count={Math.ceil(pagination._total / pagination._limit) || -1}
+                        page={pagination._page}
+                        defaultPage={1}
+                        onChange={handlePageChange}
+                      />
+                    </Stack>
+                  </WrapPagination>
                 </>
               )}
             </Paper>

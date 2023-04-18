@@ -12,7 +12,8 @@ const productApi = {
     // GET: /product?_start=0_limit=10
     // Fetch product list + count
     const data = await axiosClient.get('/products', {
-      params: { _start: newParams._start, _limit: newParams._limit },
+      params: newParams,
+      // params: { _start: newParams._start, _limit: newParams._limit },
     });
 
     const count = await axiosClient.get('/products/count', { params: newParams });

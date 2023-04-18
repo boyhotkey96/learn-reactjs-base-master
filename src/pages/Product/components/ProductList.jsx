@@ -8,7 +8,7 @@ ProductList.propTypes = {
 
 function ProductList({ products, styleProductItem }) {
   return (
-    <Grid container>
+    <Grid container mt={1}>
       {products.map((product, index) => (
         <ProductItem key={index} product={product} styleProductItem={styleProductItem} />
       ))}
