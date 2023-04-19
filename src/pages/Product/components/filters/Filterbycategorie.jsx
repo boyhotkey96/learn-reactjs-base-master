@@ -1,11 +1,53 @@
-import { Skeleton, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import categorieApi from 'api/categorieApi';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 Filterbycategorie.propTypes = {
   onChange: PropTypes.func,
 };
+
+const Wrapper = styled(Box)`
+  padding: 20px;
+  & ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    & li {
+      margin-top: 5px;
+      & > span {
+        cursor: pointer;
+        transition: all 0.25s ease-out;
+        &:hover {
+          color: #513d3d;
+        }
+      }
+    }
+  }
+`;
+
+// Test css
+/* const styleCss = {
+  root: {
+    padding: '20px',
+  },
+  menu: {
+    padding: 0,
+    margin: 0,
+    listStyleType: 'none',
+  },
+  'menu-item': {
+    marginTop: '10px',
+  },
+  span: {
+    cursor: 'pointer',
+    transition: 'all 0.25s ease-out',
+    ':hover': {
+      color: '#513d3d',
+    },
+  },
+}; */
 
 function Filterbycategorie({ onChange }) {
   const [categorieList, setcategorieList] = useState([]);
@@ -39,16 +81,18 @@ function Filterbycategorie({ onChange }) {
   return isLoading ? (
     <SekeletonEffect />
   ) : (
-    <>
-      <Typography>Danh mục sản phẩm</Typography>
+    <Wrapper>
+      <Typography sx={{ marginBottom: '10px' }} variant="subtitle2" textTransform="uppercase">
+        Danh mục sản phẩm
+      </Typography>
       <ul>
         {categorieList.map((cat) => (
-          <li key={cat.id} onClick={handleClick.bind(null, cat)}>
-            {cat.name}
+          <li key={cat.id}>
+            <span onClick={handleClick.bind(null, cat)}>{cat.name}</span>
           </li>
         ))}
       </ul>
-    </>
+    </Wrapper>
   );
 }
 

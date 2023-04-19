@@ -106,7 +106,7 @@ function ListPage() {
           <GridLeft item>
             <Paper elevation={0}>
               {/* component categories */}
-              <ProductFilters filters={filters} onChange={handleFiltersChange} />
+              <ProductFilters onChange={handleFiltersChange} />
             </Paper>
           </GridLeft>
           <GridRight item>
