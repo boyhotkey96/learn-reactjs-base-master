@@ -93,10 +93,19 @@ function ListPage() {
   };
 
   const handleFiltersChange = (newFilters) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      ...newFilters,
-    }));
+    setFilters((prevFilters) => {
+      const newFiltersLastOne = {
+        ...prevFilters,
+        ...newFilters,
+      };
+
+      // Remove: isPromotion/isFreeship === false when unchecked from url
+      const { isPromotion, isFreeShip } = newFiltersLastOne;
+      isPromotion === false && delete newFiltersLastOne.isPromotion;
+      isFreeShip === false && delete newFiltersLastOne.isFreeShip;
+
+      return newFiltersLastOne;
+    });
   };
 
   return (
@@ -106,7 +115,7 @@ function ListPage() {
           <GridLeft item>
             <Paper elevation={0}>
               {/* component categories */}
-              <ProductFilters onChange={handleFiltersChange} />
+              <ProductFilters filters={filters} onChange={handleFiltersChange} />
             </Paper>
           </GridLeft>
           <GridRight item>

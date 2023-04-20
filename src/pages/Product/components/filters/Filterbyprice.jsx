@@ -8,8 +8,8 @@ Filterbyprice.propTypes = {
 };
 
 const Wrapper = styled(Box)`
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 `;
 
 // https://api.ezfrontend.com/products?_start=0&_limit=10&salePrice_lte=1000000&&salePrice_gte=100000
