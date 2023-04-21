@@ -1,10 +1,11 @@
-import { Box, Container, Grid, Pagination, Paper, Stack, styled } from '@mui/material';
+import { Alert, Box, Container, Grid, Pagination, Paper, Stack, styled } from '@mui/material';
 import productApi from 'api/productApi';
 import { useEffect, useState } from 'react';
 import ProductFilters from './components/ProductFilters';
 import ProductList from './components/ProductList';
 import ProductSkeletonList from './components/ProductSkeletonList';
 import ProductSortPrice from './components/ProductSortPrice';
+import FilterViewer from './components/filters/FilterViewer';
 
 ListPage.propTypes = {};
 
@@ -19,12 +20,10 @@ const styleProductItem = {
   md: 4,
   sx: {
     marginBottom: '3rem',
-    padding: '0 8px',
+    padding: '0 10px',
   },
 };
 const WrapPagination = styled(Box)`
-  display: flex;
-  justify-content: center;
   margin-top: 2.5rem;
   padding-bottom: 1rem;
 `;
@@ -101,11 +100,15 @@ function ListPage() {
 
       // Remove: isPromotion/isFreeship === false when unchecked from url
       const { isPromotion, isFreeShip } = newFiltersLastOne;
-      isPromotion === false && delete newFiltersLastOne.isPromotion;
-      isFreeShip === false && delete newFiltersLastOne.isFreeShip;
+      !isPromotion && delete newFiltersLastOne.isPromotion;
+      !isFreeShip && delete newFiltersLastOne.isFreeShip;
 
       return newFiltersLastOne;
     });
+  };
+
+  const handleViewerChange = (newFilters) => {
+    setFilters(newFilters);
   };
 
   return (
@@ -126,17 +129,27 @@ function ListPage() {
                 <>
                   {/* component product */}
                   <ProductSortPrice currentValue={filters._sort || DEFAULT.tab} onChange={handleSortChange} />
+                  <FilterViewer filters={filters} onChange={handleViewerChange} />
                   <ProductList products={products} styleProductItem={styleProductItem} />
                   <WrapPagination>
-                    <Stack spacing={2}>
-                      <Pagination
-                        color="primary"
-                        // shape="rounded"
-                        count={Math.ceil(pagination._total / pagination._limit) || -1}
-                        page={pagination._page}
-                        defaultPage={1}
-                        onChange={handlePageChange}
-                      />
+                    <Stack sx={{ padding: '0 8px' }} spacing={2}>
+                      {pagination._total ? (
+                        <Pagination
+                          sx={{ display: 'flex', justifyContent: 'center' }}
+                          color="primary"
+                          // shape="rounded"
+                          hidePrevButton={!pagination._total}
+                          hideNextButton={!pagination._total}
+                          count={Math.ceil(pagination._total / pagination._limit) || -1}
+                          page={pagination._page}
+                          defaultPage={1}
+                          onChange={handlePageChange}
+                        />
+                      ) : (
+                        <Alert sx={{ marginTop: '40px' }} severity="warning">
+                          Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn
+                        </Alert>
+                      )}
                     </Stack>
                   </WrapPagination>
                 </>

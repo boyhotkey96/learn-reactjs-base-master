@@ -74,7 +74,7 @@ function Filterbycategorie({ onChange }) {
 
   const handleClick = (categorie) => {
     if (onChange) {
-      onChange(categorie.id);
+      onChange(categorie);
     }
   };
 
@@ -86,9 +86,9 @@ function Filterbycategorie({ onChange }) {
         Danh mục sản phẩm
       </Typography>
       <ul>
-        {categorieList.map((cat) => (
-          <li key={cat.id}>
-            <span onClick={handleClick.bind(null, cat)}>{cat.name}</span>
+        {categorieList.map((categorie) => (
+          <li key={categorie.id}>
+            <span onClick={handleClick.bind(null, categorie)}>{categorie.name}</span>
           </li>
         ))}
       </ul>

@@ -16,9 +16,9 @@ function ProductSortPrice({ currentValue, onChange }) {
   };
 
   return (
-    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ borderBottom: 1, borderColor: 'divider', padding: '0 8px' }}>
       <Tabs value={currentValue} onChange={handleSortChange} aria-label="basic tabs example">
-        <CustomTab label="Phổ biến" value="default" />
+        <CustomTab label="Phổ biến" value="default" color="" />
         <CustomTab label="Giá thấp" value="salePrice:ASC" />
         <CustomTab label="Giá cao" value="salePrice:DESC" />
       </Tabs>
