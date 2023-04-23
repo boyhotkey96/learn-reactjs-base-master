@@ -13,7 +13,7 @@ const Wrapper = styled(Box)`
 
 // https://api.ezfrontend.com/products?_start=0&_limit=10&isPromotion=true
 
-function Filterbyservice({ filters, onChange }) {
+function Filterbyservice({ filters = { isPromotion: true, isFreeShip: true }, onChange }) {
   /* const [isChecked, setIsChecked] = useState({
     isPromotion: false,
     isFreeShip: false,
@@ -24,6 +24,7 @@ function Filterbyservice({ filters, onChange }) {
     { value: 'isFreeShip', label: 'Vận chuyển miễn phí' },
   ];
 
+  // handle FilterbySerivce
   const handleChange = (e) => {
     const { name, checked } = e.target;
 

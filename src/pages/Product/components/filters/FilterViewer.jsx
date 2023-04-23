@@ -1,5 +1,6 @@
 import { Box, Chip } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 
 FilterViewer.propTypes = {
@@ -85,9 +86,13 @@ const FILTER_LIST = [
 ];
 
 function FilterViewer({ filters = {}, onChange = null }) {
+  const visibleFilter = useMemo(() => {
+    return FILTER_LIST.filter((x) => x.isVisible(filters));
+  }, [filters]);
+
   return (
     <Box component={UlWrapper}>
-      {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
+      {visibleFilter.map((x) => (
         <li key={x.id}>
           <Chip
             label={x.getLabel(filters)}

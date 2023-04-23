@@ -10,7 +10,7 @@ ProductFilters.propTypes = {
 };
 
 function ProductFilters({ filters, onChange }) {
-  // Filterbycategorie
+  // handle Filterbycategorie
   const handleCategorieChange = (categorie) => {
     if (!onChange) return;
 
@@ -23,7 +23,7 @@ function ProductFilters({ filters, onChange }) {
     onChange(newFilters);
   };
 
-  // Filterbyprice
+  // handle Filterbyprice
   const handlePriceChange = (values) => {
     // console.log(values)
     if (!onChange) return;
@@ -36,7 +36,7 @@ function ProductFilters({ filters, onChange }) {
     onChange(newFilters);
   };
 
-  // Filterbyservice
+  // handle Filterbyservice
   const handleServiceChange = (values) => {
     // console.log(values);
     if (!onChange) return;

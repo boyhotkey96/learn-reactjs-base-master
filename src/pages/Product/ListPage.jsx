@@ -1,20 +1,23 @@
 import { Alert, Box, Container, Grid, Pagination, Paper, Stack, styled } from '@mui/material';
 import productApi from 'api/productApi';
-import { useEffect, useState } from 'react';
+import queryString from 'query-string';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ProductFilters from './components/ProductFilters';
 import ProductList from './components/ProductList';
 import ProductSkeletonList from './components/ProductSkeletonList';
 import ProductSortPrice from './components/ProductSortPrice';
 import FilterViewer from './components/filters/FilterViewer';
 
-ListPage.propTypes = {};
-
+// START: css styled mui
 const GridLeft = styled(Grid)`
   width: 250px;
 `;
+
 const GridRight = styled(Grid)`
   flex: 1;
 `;
+
 const styleProductItem = {
   xs: 6,
   md: 4,
@@ -23,27 +26,61 @@ const styleProductItem = {
     padding: '0 10px',
   },
 };
+
 const WrapPagination = styled(Box)`
   margin-top: 2.5rem;
   padding-bottom: 1rem;
 `;
+// END: css styled mui
+
+const CONSTANT = {
+  tab: 'default',
+};
 
 function ListPage() {
-  const DEFAULT = {
-    tab: 'default',
-  };
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  // let queryParams = queryString.parse(location.search);
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+
+    const newParams = {
+      ...params,
+      _limit: Number.parseInt(params._limit) || 9,
+      _page: Number.parseInt(params._page) || 1,
+      // _sort: params._sort || CONSTANT.tab,
+      isPromotion: params.isPromotion === 'true',
+      isFreeShip: params.isFreeShip === 'true',
+    };
+
+    // Remove to url params when get api: isPromotion === false, isFreeShip === false
+    const { isPromotion, isFreeShip } = newParams;
+    !isPromotion && delete newParams.isPromotion;
+    !isFreeShip && delete newParams.isFreeShip;
+
+    return newParams;
+  }, [location.search]);
+
   const [products, setProducts] = useState([]);
-  const [pagination, setPagination] = useState({
-    // _limit: 9,
-    // _page: 1,
-    // _total: 10,
-  });
-  const [filters, setFilters] = useState({
-    _limit: 9,
-    _page: 1,
-    // _sort: 'salePrice:ASC',
-  });
+  const [pagination, setPagination] = useState({});
+  // const [filters, setFilters] = useState({
+  //   _limit: 9,
+  //   _page: 1,
+  //   // _sort: 'salePrice:ASC',
+  // });
+
+  // const [filters, setFilters] = useState({
+  //   ...queryParams,
+  //   _limit: Number.parseInt(queryParams._limit) || 9,
+  //   _page: Number.parseInt(queryParams._page) || 1,
+  // });
   const [isLoading, setIsloading] = useState(false);
+
+  // useEffect(() => {
+  //   const paramsString = queryString.stringify(filters);
+  //   navigate(`?${paramsString}`);
+  // }, [navigate, filters]);
 
   useEffect(() => {
     (async () => {
@@ -65,7 +102,7 @@ function ListPage() {
         const data = await result.json();
         console.log(data) */
 
-        const response = await productApi.getAll(filters);
+        const response = await productApi.getAll(queryParams);
         // console.log(response);
         const { data, pagination } = response;
         setProducts(data);
@@ -76,39 +113,61 @@ function ListPage() {
         setIsloading(false);
       }
     })();
-  }, [filters]);
+  }, [queryParams]);
 
   const handlePageChange = (e, page) => {
-    setFilters((prev) => ({ ...prev, _page: page }));
+    // setFilters((prev) => ({ ...prev, _page: page }));
+
+    const filters = { ...queryParams, _page: page };
+    const params = queryString.stringify(filters);
+    navigate(`?${params}`);
   };
 
   const handleSortChange = (newSortValue) => {
-    // console.log(newSortValue);
-    setFilters((prev) => {
-      const newFilters = { ...prev, _sort: newSortValue };
-      newSortValue === DEFAULT.tab && delete newFilters._sort;
-      return newFilters;
-    });
+    // setFilters((prev) => {
+    //   const newFilters = { ...prev, _sort: newSortValue };
+    //   newSortValue === DEFAULT.tab && delete newFilters._sort;
+    //   return newFilters;
+    // });
+
+    const filters = { ...queryParams, _sort: newSortValue };
+    filters._sort === CONSTANT.tab && delete filters._sort;
+    const params = queryString.stringify(filters);
+    navigate(`?${params}`);
   };
 
   const handleFiltersChange = (newFilters) => {
-    setFilters((prevFilters) => {
-      const newFiltersLastOne = {
-        ...prevFilters,
-        ...newFilters,
-      };
+    // setFilters((prevFilters) => {
+    //   const newFiltersLastOne = {
+    //     ...prevFilters,
+    //     ...newFilters,
+    //   };
 
-      // Remove: isPromotion/isFreeship === false when unchecked from url
-      const { isPromotion, isFreeShip } = newFiltersLastOne;
-      !isPromotion && delete newFiltersLastOne.isPromotion;
-      !isFreeShip && delete newFiltersLastOne.isFreeShip;
+    //   // Remove: isPromotion/isFreeship === false when unchecked from url
+    //   const { isPromotion, isFreeShip } = newFiltersLastOne;
+    //   !isPromotion && delete newFiltersLastOne.isPromotion;
+    //   !isFreeShip && delete newFiltersLastOne.isFreeShip;
 
-      return newFiltersLastOne;
-    });
+    //   return newFiltersLastOne;
+    // });
+
+    console.log(newFilters);
+    const filters = { ...queryParams, ...newFilters };
+
+    // Remove to url location: isPromotion === false, isFreeShip === false
+    const { isPromotion, isFreeShip } = filters;
+    !isPromotion && delete filters.isPromotion;
+    !isFreeShip && delete filters.isFreeShip;
+
+    const params = queryString.stringify(filters);
+    navigate(`?${params}`);
   };
 
   const handleViewerChange = (newFilters) => {
-    setFilters(newFilters);
+    // setFilters(newFilters);
+
+    const params = queryString.stringify(newFilters);
+    navigate(`?${params}`);
   };
 
   return (
@@ -117,8 +176,8 @@ function ListPage() {
         <Grid container spacing={1} p={1}>
           <GridLeft item>
             <Paper elevation={0}>
-              {/* component categories */}
-              <ProductFilters filters={filters} onChange={handleFiltersChange} />
+              {/* Component Categories */}
+              <ProductFilters filters={queryParams} onChange={handleFiltersChange} />
             </Paper>
           </GridLeft>
           <GridRight item>
@@ -127,10 +186,16 @@ function ListPage() {
                 <ProductSkeletonList {...styleProductItem} length={9} />
               ) : (
                 <>
-                  {/* component product */}
-                  <ProductSortPrice currentValue={filters._sort || DEFAULT.tab} onChange={handleSortChange} />
-                  <FilterViewer filters={filters} onChange={handleViewerChange} />
+                  {/* Component Sort Price */}
+                  <ProductSortPrice currentValue={queryParams._sort || CONSTANT.tab} onChange={handleSortChange} />
+
+                  {/* Component Filter Viewer */}
+                  <FilterViewer filters={queryParams} onChange={handleViewerChange} />
+
+                  {/* Component Products */}
                   <ProductList products={products} styleProductItem={styleProductItem} />
+
+                  {/* Component Pagination */}
                   <WrapPagination>
                     <Stack sx={{ padding: '0 8px' }} spacing={2}>
                       {pagination._total ? (
