@@ -13,27 +13,21 @@ const Wrapper = styled(Box)`
 
 // https://api.ezfrontend.com/products?_start=0&_limit=10&isPromotion=true
 
-function Filterbyservice({ filters = { isPromotion: true, isFreeShip: true }, onChange }) {
+function Filterbyservice({ filters, onChange }) {
   /* const [isChecked, setIsChecked] = useState({
     isPromotion: false,
     isFreeShip: false,
   }); */
 
-  const serviceList = [
-    { value: 'isPromotion', label: 'Có khuyến mãi' },
-    { value: 'isFreeShip', label: 'Vận chuyển miễn phí' },
-  ];
-
   // handle FilterbySerivce
   const handleChange = (e) => {
-    const { name, checked } = e.target;
+    if (!onChange) return;
 
+    const { name, checked } = e.target;
     /* setIsChecked((prev) => ({
       ...prev,
       [name]: checked,
     })); */
-
-    if (!onChange) return;
     onChange({ [name]: checked });
   };
 
@@ -44,10 +38,13 @@ function Filterbyservice({ filters = { isPromotion: true, isFreeShip: true }, on
       </Typography>
 
       <FormGroup sx={{ marginTop: '15px' }}>
-        {serviceList.map((service, index) => (
+        {[
+          { value: 'isPromotion', label: 'Có khuyến mãi' },
+          { value: 'isFreeShip', label: 'Vận chuyển miễn phí' },
+        ].map((service, index) => (
           <FormControlLabel
             sx={{ marginLeft: 'unset' }}
-            key={index}
+            key={service.value}
             label={service.label}
             control={
               <Checkbox

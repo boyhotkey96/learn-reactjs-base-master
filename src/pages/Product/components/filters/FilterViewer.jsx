@@ -72,7 +72,8 @@ const FILTER_LIST = [
   {
     id: 4,
     getLabel: (filters) => `Danh mục ${CATEGORIE_LIST[filters['category.id'] - 1]}`,
-    isVisible: (filters) => Object.keys(filters).includes('category.id'),
+    // isVisible: (filters) => Object.keys(filters).includes('category.id'),
+    isVisible: (filters) => filters['category.id'],
     isActive: () => true,
     isRemovable: true,
     onRemove: (filters) => {

@@ -151,7 +151,7 @@ function ListPage() {
     //   return newFiltersLastOne;
     // });
 
-    console.log(newFilters);
+    // console.log(newFilters);
     const filters = { ...queryParams, ...newFilters };
 
     // Remove to url location: isPromotion === false, isFreeShip === false
