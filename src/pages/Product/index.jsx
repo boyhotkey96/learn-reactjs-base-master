@@ -9,7 +9,6 @@ function Product(props) {
 
   return (
     <>
-      Product page
       <Outlet />
     </>
   );

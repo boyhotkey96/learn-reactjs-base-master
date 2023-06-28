@@ -11,6 +11,7 @@ import Products from 'features/Products';
 import RandomNumber from 'features/RandomNumber';
 import TodoFeatures from 'features/Todo';
 import Product from 'pages/Product';
+import DetailPage from 'pages/Product/DetailPage';
 import ListPage from 'pages/Product/ListPage';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -72,6 +73,7 @@ function App() {
 
         <Route path="/product" element={<Product />}>
           <Route index element={<ListPage />} />
+          <Route path="/product/:productId" element={<DetailPage />} />
         </Route>
       </Routes>
     </>

@@ -28,6 +28,9 @@ const productApi = {
       },
     };
   },
+  get: (id) => {
+    return axiosClient.get(`/products/${id}`);
+  },
 };
 
 export default productApi;
