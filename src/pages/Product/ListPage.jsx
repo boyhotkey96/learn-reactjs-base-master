@@ -50,14 +50,16 @@ function ListPage() {
       _limit: Number.parseInt(params._limit) || 9,
       _page: Number.parseInt(params._page) || 1,
       // _sort: params._sort || CONSTANT.tab,
-      isPromotion: params.isPromotion === 'true',
-      isFreeShip: params.isFreeShip === 'true',
+      isPromotion: ['true', 'false'].includes(params.isPromotion) ? params.isPromotion === 'true' : undefined,
+      isFreeShip: ['true', 'false'].includes(params.isFreeShip) ? params.isFreeShip === 'true' : undefined,
+      // isPromotion: params.isPromotion === 'true',
+      // isFreeShip: params.isFreeShip === 'true',
     };
 
     // Remove to url params when get api: isPromotion === false, isFreeShip === false
-    const { isPromotion, isFreeShip } = newParams;
+    /* const { isPromotion, isFreeShip } = newParams;
     !isPromotion && delete newParams.isPromotion;
-    !isFreeShip && delete newParams.isFreeShip;
+    !isFreeShip && delete newParams.isFreeShip; */
 
     return newParams;
   }, [location.search]);
