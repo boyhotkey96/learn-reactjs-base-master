@@ -1347,10 +1347,10 @@
   "resolved" "https://registry.npmjs.org/@hookform/error-message/-/error-message-2.0.1.tgz"
   "version" "2.0.1"
 
-"@hookform/resolvers@^2.9.11":
-  "integrity" "sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ=="
-  "resolved" "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-2.9.11.tgz"
-  "version" "2.9.11"
+"@hookform/resolvers@^3.1.1":
+  "integrity" "sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg=="
+  "resolved" "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-3.1.1.tgz"
+  "version" "3.1.1"
 
 "@humanwhocodes/config-array@^0.11.8":
   "integrity" "sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g=="
@@ -8923,10 +8923,10 @@
   "resolved" "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   "version" "6.0.11"
 
-"react-hook-form@^7.43.3":
-  "integrity" "sha512-LV6Fixh+hirrl6dXbM78aB6n//82aKbsNbcofF3wc6nx1UJLu3Jj/gsg1E5C9iISnLX+du8VTUyBUz2aCy+H7w=="
-  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.3.tgz"
-  "version" "7.43.3"
+"react-hook-form@^7.45.1":
+  "integrity" "sha512-6dWoFJwycbuFfw/iKMcl+RdAOAOHDiF11KWYhNDRN/OkUt+Di5qsZHwA0OwsVnu9y135gkHpTw9DJA+WzCeR9w=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.45.1.tgz"
+  "version" "7.45.1"
 
 "react-is@^16.12.0", "react-is@^16.13.1", "react-is@^16.7.0", "react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.4":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="

@@ -3,14 +3,14 @@ import { CloseOutlined, LockOutlined, Person2Outlined } from '@mui/icons-materia
 import { Avatar, Box, Button, IconButton, LinearProgress, Typography } from '@mui/material';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
 LoginForm.propTypes = {
-  onSubmit: Proptypes.func,
-  closeDialog: Proptypes.func,
-  isLoading: Proptypes.bool,
+  onSubmit: PropTypes.func,
+  closeDialog: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 function LoginForm({ onSubmit, closeDialog, isLoading }) {

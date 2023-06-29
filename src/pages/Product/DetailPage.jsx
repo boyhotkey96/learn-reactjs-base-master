@@ -1,8 +1,9 @@
 import { Box, Container, Grid, Paper, styled } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import AddToCartForm from './components/AddToCartForm';
 import ProductInfo from './components/ProductInfo';
 import ProductThumbnail from './components/ProductThumbnail';
-import { useProductDetail } from './components/hooks/useProductDetail';
+import { useProductDetail } from './hooks/useProductDetail';
 
 DetailPage.propTypes = {};
 
@@ -23,6 +24,14 @@ function DetailPage(props) {
 
   const { product, loading } = useProductDetail(productId);
 
+  const handleAddFormToCart = (values) => {
+    console.log('form submit', values);
+  };
+
+  const handleAddToCart = (values) => {
+    console.log('cart form submit: ', values);
+  };
+
   if (loading) {
     return <Box>Loading...</Box>;
   }
@@ -35,8 +44,10 @@ function DetailPage(props) {
             <GridLeft item>
               <ProductThumbnail product={product} />
             </GridLeft>
+
             <GridRight item>
               <ProductInfo product={product} />
+              <AddToCartForm onSubmit={handleAddToCart} />
             </GridRight>
           </Grid>
         </Paper>

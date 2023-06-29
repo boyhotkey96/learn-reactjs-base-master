@@ -7,7 +7,6 @@ ProductInfo.propTypes = {
 };
 
 function ProductInfo({ product = {} }) {
-  // console.log(product)
   const { name, shortDescription, salePrice, originalPrice, promotionPercent } = product;
 
   return (

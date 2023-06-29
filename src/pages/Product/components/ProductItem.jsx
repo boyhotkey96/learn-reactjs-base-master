@@ -11,6 +11,8 @@ ProductItem.propTypes = {
 function ProductItem({ product, styleProductItem }) {
   const thumnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMNAIL_PLACEHOLDER;
 
+  styleProductItem.sx = { ...styleProductItem.sx, cursor: 'pointer' };
+  
   const navigate = useNavigate();
 
   const handleClick = () => {
