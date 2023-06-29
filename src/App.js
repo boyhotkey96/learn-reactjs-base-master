@@ -73,7 +73,12 @@ function App() {
 
         <Route path="/product" element={<Product />}>
           <Route index element={<ListPage />} />
-          <Route path="/product/:productId" element={<DetailPage />} />
+          {/* <Route path="/product/:productId" element={<DetailPage />} /> */}
+          <Route path="/product/:productId" element={<DetailPage />}>
+            <Route index element={<span>Description</span>} />
+            <Route path="infomation" element={<span>Infomation</span>} />
+            <Route path="review" element={<span>Review</span>} />
+          </Route>
         </Route>
       </Routes>
     </>

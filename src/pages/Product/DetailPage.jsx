@@ -1,7 +1,8 @@
 import { Box, Container, Grid, Paper, styled } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import AddToCartForm from './components/AddToCartForm';
 import ProductInfo from './components/ProductInfo';
+import ProductMenu from './components/ProductMenu';
 import ProductThumbnail from './components/ProductThumbnail';
 import { useProductDetail } from './hooks/useProductDetail';
 
@@ -51,6 +52,9 @@ function DetailPage(props) {
             </GridRight>
           </Grid>
         </Paper>
+
+        <ProductMenu />
+        <Outlet />
       </Container>
     </Box>
   );
