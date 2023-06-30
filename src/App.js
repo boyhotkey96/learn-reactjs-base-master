@@ -13,7 +13,6 @@ import TodoFeatures from 'features/Todo';
 import Product from 'pages/Product';
 import DetailPage from 'pages/Product/DetailPage';
 import ListPage from 'pages/Product/ListPage';
-import ProductDescription from 'pages/Product/components/ProductDescription';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -74,13 +73,15 @@ function App() {
 
         <Route path="/product" element={<Product />}>
           <Route index element={<ListPage />} />
-          {/* <Route path="/product/:productId" element={<DetailPage />} /> */}
-          <Route path="/product/:productId" element={<DetailPage />}>
+          <Route path="/product/:productId/*" element={<DetailPage />} />
+          {/* <Route path="/product/:productId" element={<DetailPage />}>
             <Route index element={<ProductDescription />} />
-            <Route path="infomation" element={<span>Infomation</span>} />
-            <Route path="review" element={<span>Review</span>} />
-          </Route>
+            <Route path="/infomation" element={<span>Infomation</span>} />
+            <Route path="/review" element={<span>Review</span>} />
+          </Route> */}
+          
         </Route>
+        <Route path="*" element={<span>page 404</span>} />
       </Routes>
     </>
   );

@@ -1,5 +1,5 @@
-import { Link } from '@mui/material';
-import { NavLink, useLocation, useMatch } from 'react-router-dom';
+import { Box, Link } from '@mui/material';
+import { NavLink, useLocation, useResolvedPath } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Ul = styled.ul`
@@ -14,6 +14,9 @@ const Ul = styled.ul`
   }
   & a {
     text-decoration: none;
+    &.active {
+      text-decoration: underline;
+    }
     &:hover {
       text-decoration: underline;
     }
@@ -22,14 +25,8 @@ const Ul = styled.ul`
 
 function ProductMenu() {
   const location = useLocation();
-  const match = useMatch('/product/:productId');
-  // console.log(match);
-  // console.log(location);
-
   let urlCurrent = '';
-
-  // console.log(window.location);
-
+  // Inffective
   if (location.pathname.includes('infomation') || location.pathname.includes('review')) {
     let arrPathName = location.pathname.split('/');
     urlCurrent = `/${arrPathName[1]}/${arrPathName[2]}`;
@@ -40,24 +37,26 @@ function ProductMenu() {
     // console.log(tmp);
   }
 
+  const url = useResolvedPath('').pathname;
+
   return (
-    <Ul>
+    <Box component={Ul}>
       <li>
-        <Link component={NavLink} to={`${urlCurrent}`}>
+        <Link component={NavLink} end to={url}>
           Description
         </Link>
       </li>
       <li>
-        <Link component={NavLink} to="infomation">
+        <Link component={NavLink} end to="infomation">
           Additional Infomation
         </Link>
       </li>
       <li>
-        <Link component={NavLink} to="review">
+        <Link component={NavLink} end to={`${url}/review`}>
           Reviews
         </Link>
       </li>
-    </Ul>
+    </Box>
   );
 }
 
