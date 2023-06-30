@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, styled } from '@mui/material';
+import { Box, Container, Grid, LinearProgress, Paper, styled } from '@mui/material';
 import { Outlet, useParams } from 'react-router-dom';
 import AddToCartForm from './components/AddToCartForm';
 import ProductInfo from './components/ProductInfo';
@@ -19,27 +19,27 @@ const GridRight = styled(Grid)`
   padding: 10px;
 `;
 
-function DetailPage(props) {
+function DetailPage() {
   const params = useParams();
   const { productId } = params;
 
   const { product, loading } = useProductDetail(productId);
-
-  const handleAddFormToCart = (values) => {
-    console.log('form submit', values);
-  };
 
   const handleAddToCart = (values) => {
     console.log('cart form submit: ', values);
   };
 
   if (loading) {
-    return <Box>Loading...</Box>;
+    return (
+      <Box>
+        <LinearProgress sx={{ position: 'fixed', top: 0, left: 0, width: '100%' }} color="success" />
+      </Box>
+    );
   }
 
   return (
     <Box>
-      <Container>
+      <Container sx={{ paddingBottom: '20px' }}>
         <Paper elevation={0}>
           <Grid container>
             <GridLeft item>
@@ -54,7 +54,7 @@ function DetailPage(props) {
         </Paper>
 
         <ProductMenu />
-        <Outlet />
+        <Outlet context={product} />
       </Container>
     </Box>
   );

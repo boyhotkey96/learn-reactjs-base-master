@@ -4528,7 +4528,7 @@
   dependencies:
     "domelementtype" "^2.2.0"
 
-"dompurify@^2.2.7":
+"dompurify@^2.4.5":
   "integrity" "sha512-jggCCd+8Iqp4Tsz0nIvpcb22InKEBrGz5dw3EQJMs8HPJDsKbFIO3STYtAvCfDx26Muevn1MHVI0XxjgFfmiSA=="
   "resolved" "https://registry.npmjs.org/dompurify/-/dompurify-2.4.5.tgz"
   "version" "2.4.5"
