@@ -42,7 +42,7 @@ const userSlice = createSlice({
       // logout not call api, only update state
       state.current = null;
       state.errorMessage = '';
-      
+
       // remove data to local storage
       localStorage.removeItem(StorageKeys.TOKEN);
       localStorage.removeItem(StorageKeys.USER);

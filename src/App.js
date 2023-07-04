@@ -10,6 +10,7 @@ import MagicColor from 'features/MagicColor';
 import Products from 'features/Products';
 import RandomNumber from 'features/RandomNumber';
 import TodoFeatures from 'features/Todo';
+import Cart from 'pages/Cart';
 import Product from 'pages/Product';
 import DetailPage from 'pages/Product/DetailPage';
 import ListPage from 'pages/Product/ListPage';
@@ -79,8 +80,8 @@ function App() {
             <Route path="/infomation" element={<span>Infomation</span>} />
             <Route path="/review" element={<span>Review</span>} />
           </Route> */}
-          
         </Route>
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<span>page 404</span>} />
       </Routes>
     </>

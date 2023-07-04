@@ -1,7 +1,7 @@
 import { IconButton } from '@material-ui/core';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, ShoppingCart } from '@mui/icons-material';
 import CodeIcon from '@mui/icons-material/Code';
-import { DialogContent, Menu, MenuItem, ThemeProvider, createTheme } from '@mui/material';
+import { Badge, DialogContent, Menu, MenuItem, ThemeProvider, createTheme } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import './style.scss';
+import { cartItemCountSelector, cartTotalSelector } from 'pages/Cart/selector';
 
 // Demo override css in MUI
 const theme = createTheme({
@@ -38,6 +39,7 @@ export default function Header() {
   };
 
   const dispatch = useDispatch();
+  const cartItemCount = useSelector(cartItemCountSelector)
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
@@ -101,6 +103,15 @@ export default function Header() {
           </NavLink>
           <NavLink className="app-bar__link" to="/clock">
             <Button color="inherit">Clock</Button>
+          </NavLink>
+          {/* Cart */}
+          <NavLink className="app-bar-link" to="/cart">
+            <IconButton size="small" aria-label="17" color="inherit">
+              {console.log(cartTotalSelector)}
+              <Badge badgeContent={cartItemCount} color="error">
+                <ShoppingCart sx={{ color: '#fff' }} />
+              </Badge>
+            </IconButton>
           </NavLink>
           {loggedUser ? (
             // User login: show info user

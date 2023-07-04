@@ -20,6 +20,7 @@ function QuantityField(props) {
           render={({ field: { onChange, onBlur, value, ref } }) => (
             <Box sx={{ mt: 1.5 }}>
               <IconButton
+                disabled={value <= 1}
                 onClick={() =>
                   setValue(name, Number.parseInt(value) > 1 ? Number.parseInt(value) - 1 : Number.parseInt(value))
                 }

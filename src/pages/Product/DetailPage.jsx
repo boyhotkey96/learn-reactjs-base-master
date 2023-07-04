@@ -1,4 +1,6 @@
 import { Box, Container, Grid, LinearProgress, Paper, styled } from '@mui/material';
+import { addToCart } from 'pages/Cart/cartSlice';
+import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
 import AddToCartForm from './components/AddToCartForm';
 import ProductDescription from './components/ProductDescription';
@@ -26,10 +28,20 @@ function DetailPage() {
   const params = useParams();
   const { productId } = params;
 
+  const dispatch = useDispatch();
+
   const { product, loading } = useProductDetail(productId);
 
   const handleAddToCart = (values) => {
     console.log('cart form submit: ', values);
+
+    dispatch(
+      addToCart({
+        id: product.id,
+        product,
+        quantity: values.quantity,
+      })
+    );
   };
 
   if (loading) {
