@@ -33,15 +33,15 @@ function DetailPage() {
   const { product, loading } = useProductDetail(productId);
 
   const handleAddToCart = (values) => {
-    console.log('cart form submit: ', values);
+    // console.log('cart form submit: ', values);
 
-    dispatch(
-      addToCart({
-        id: product.id,
-        product,
-        quantity: values.quantity,
-      })
-    );
+    const newItem = {
+      id: product.id,
+      product,
+      quantity: values.quantity,
+    };
+
+    dispatch(addToCart(newItem));
   };
 
   if (loading) {

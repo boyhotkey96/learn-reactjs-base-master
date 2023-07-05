@@ -19,7 +19,6 @@ const cartSlice = createSlice({
       const index = state.cartItems.findIndex((x) => {
         return x.id === newItem.id;
       });
-      console.log(index);
 
       if (index >= 0) {
         // increase quanlity

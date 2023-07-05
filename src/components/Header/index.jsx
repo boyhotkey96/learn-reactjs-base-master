@@ -101,13 +101,12 @@ export default function Header() {
           <NavLink className="app-bar__link" to="/add-todo">
             <Button color="inherit">Todo</Button>
           </NavLink>
-          <NavLink className="app-bar__link" to="/clock">
-            <Button color="inherit">Clock</Button>
+          <NavLink className="app-bar__link" to="/product">
+            <Button color="inherit">Product</Button>
           </NavLink>
           {/* Cart */}
           <NavLink className="app-bar-link" to="/cart">
-            <IconButton size="small" aria-label="17" color="inherit">
-              {console.log(cartTotalSelector)}
+            <IconButton size="small" aria-label={cartItemCount} color="inherit">
               <Badge badgeContent={cartItemCount} color="error">
                 <ShoppingCart sx={{ color: '#fff' }} />
               </Badge>
