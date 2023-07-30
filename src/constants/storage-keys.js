@@ -1,4 +1,4 @@
 export const StorageKeys = {
-  USER: 'user',
-  TOKEN: 'accsess-token',
+  USER: 'user-learn-reactjs',
+  TOKEN: 'accsess-token-learn-reactjs',
 };
