@@ -15,7 +15,10 @@ LoginForm.propTypes = {
 
 function LoginForm({ onSubmit, closeDialog, isLoading }) {
   const signupSchema = Yup.object({
-    identifier: Yup.string().trim().required('Please enter your username.'),
+    identifier: Yup.string()
+      .matches(/^[0-9a-zA-Z_.-]+$/, { message: 'Make sure you enter your username', excludeEmptyString: true })
+      .trim()
+      .required('Please enter your username.'),
     password: Yup.string().trim().required('Please enter your password.'),
   }).required();
 
@@ -51,8 +54,12 @@ function LoginForm({ onSubmit, closeDialog, isLoading }) {
       }
     }); */
 
+    const newValues = {
+      ...values,
+      identifier: values.identifier.toLowerCase(),
+    };
     if (onSubmit) {
-      await onSubmit(values);
+      await onSubmit(newValues);
     }
   };
 

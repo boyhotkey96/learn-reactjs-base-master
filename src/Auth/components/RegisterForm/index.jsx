@@ -23,6 +23,7 @@ const CustomizeButton = styled(Button)`
 function RegisterForm({ onSubmit, closeDialog, isLoading }) {
   const signupSchema = Yup.object({
     username: Yup.string()
+      .matches(/^[0-9a-zA-Z_.-]+$/, { message: 'Make sure you enter your username', excludeEmptyString: true })
       .trim()
       .required('Please enter your username.')
       .test('length', 'Please enter at least six words.', (value) => {
@@ -51,8 +52,12 @@ function RegisterForm({ onSubmit, closeDialog, isLoading }) {
   });
 
   const handleSubmit = async (values) => {
+    const newValues = {
+      ...values,
+      username: values.username.toLowerCase(),
+    };
     if (onSubmit) {
-      await onSubmit(values);
+      await onSubmit(newValues);
     }
   };
 

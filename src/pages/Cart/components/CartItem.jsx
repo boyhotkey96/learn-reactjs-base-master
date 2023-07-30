@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Input, Paper, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Input, Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { STATIC_HOST, THUMNAIL_PLACEHOLDER } from 'constants';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { formatPrice } from 'utils';
-import { removeFromCart } from '../cartSlice';
+import { removeFromCart, setQuanlity } from '../cartSlice';
 import { cartItemCountSelector } from '../selector';
 
 const useStyles = makeStyles({
@@ -65,6 +65,7 @@ const useStyles = makeStyles({
   boxBtn: {
     borderRight: '1px solid rgb(200, 200, 200)',
     color: 'rgb(153, 153, 153)',
+    minWidth: 'unset',
     width: '40px',
     height: '40px',
     display: 'flex',
@@ -76,6 +77,7 @@ const useStyles = makeStyles({
   boxInput: {
     outline: 0,
     border: 0,
+    borderLeft: '1px solid rgb(200, 200, 200)',
     borderRight: '1px solid rgb(200, 200, 200)',
     width: '40px',
     height: '40px',
@@ -116,6 +118,14 @@ function CartItem({ cartItems = [] }) {
 
   const handleRemoveClick = (id) => {
     dispatch(removeFromCart(id));
+  };
+
+  const handleDecreaseClick = (id, quantity) => {
+    dispatch(setQuanlity({ id, quantity: quantity - 1 }));
+  };
+
+  const handleIncreaseClick = (id, quantity) => {
+    dispatch(setQuanlity({ id, quantity: quantity + 1 }));
   };
 
   const classes = useStyles();
@@ -173,17 +183,29 @@ function CartItem({ cartItems = [] }) {
               </Grid>
               <Grid item sx={{ margin: 'auto 20px' }}>
                 <Box className={classes.box}>
-                  <Typography className={classes.boxBtn}>-</Typography>
+                  <Button
+                    className={classes.boxBtn}
+                    disabled={item.quantity < 2}
+                    onClick={() => handleDecreaseClick(item.id, item.quantity)}
+                  >
+                    -
+                  </Button>
                   <Input
                     className={classes.boxInput}
                     // sx={{input: {textAlign: 'center'}}}
                     type="tel"
+                    style={{ cursor: `${item.quantity < 2 ? 'not-allowed' : null}` }}
                     value={value === 0 ? item.quantity : value}
                     onChange={(e) => setValue(e.target.value)}
                   />
-                  <Typography className={classes.boxBtn} style={{ borderRight: '0' }}>
+                  <Button
+                    className={classes.boxBtn}
+                    style={{ borderRight: '0', cursor: `${item.quantity > 14 ? 'not-allowed' : null}` }}
+                    disabled={item.quantity > 14}
+                    onClick={() => handleIncreaseClick(item.id, item.quantity)}
+                  >
                     +
-                  </Typography>
+                  </Button>
                 </Box>
               </Grid>
             </Grid>

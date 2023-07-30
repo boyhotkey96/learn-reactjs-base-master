@@ -11,11 +11,11 @@ import Typography from '@mui/material/Typography';
 import Login from 'Auth/components/Login';
 import Register from 'Auth/components/Register';
 import { logout } from 'Auth/userSlice';
+import { cartItemCountSelector } from 'pages/Cart/selector';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import './style.scss';
-import { cartItemCountSelector, cartTotalSelector } from 'pages/Cart/selector';
 
 // Demo override css in MUI
 const theme = createTheme({
@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   const dispatch = useDispatch();
-  const cartItemCount = useSelector(cartItemCountSelector)
+  const cartItemCount = useSelector(cartItemCountSelector);
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
@@ -81,6 +81,7 @@ export default function Header() {
   const handleLogout = () => {
     handleCloseMenu();
     dispatch(logout());
+    setMode(MODE.LOGIN);
   };
 
   const isOpen = Boolean(anchorEl);
@@ -98,7 +99,7 @@ export default function Header() {
               Tiki Shop
             </Link>
           </Typography>
-          <NavLink className="app-bar__link" to="/add-todo">
+          <NavLink className="app-bar__link" to="/todo">
             <Button color="inherit">Todo</Button>
           </NavLink>
           <NavLink className="app-bar__link" to="/product">
@@ -140,8 +141,8 @@ export default function Header() {
                   },
                 }}
               >
-                <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                {/* <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                <MenuItem onClick={handleCloseMenu}>My account</MenuItem> */}
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </ThemeProvider>
